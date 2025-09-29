@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -10,11 +11,9 @@ class LoginController extends Controller
 {
     public function login(LoginRequest $request)
     {
-        $credentials = $request->validated();
+        $user = User::where('email', $request->email)->first();
 
-        $user = User::where('email', $credentials['email'])->first();
-
-        if (! $user || ! Hash::check($credentials['password'], $user->password)) {
+        if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json(['message' => 'Invalid credentials'], 401);
         }
 
@@ -25,10 +24,12 @@ class LoginController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
-            'message'      => 'Login successful',
+            'message' => 'Login successful',
             'access_token' => $token,
-            'token_type'   => 'Bearer',
+            'token_type' => 'Bearer'
         ], 201);
     }
+
+
 
 }

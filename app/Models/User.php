@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,7 +8,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-   use HasFactory, Notifiable, HasApiTokens;
+    use HasFactory, Notifiable, HasApiTokens;
 
     protected $table = 'users';
 
@@ -54,8 +53,8 @@ class User extends Authenticatable
     {
         return json_decode($value, true);
     }
-    // public function comPermission()
-    // {
-    //     return $this->hasOne(ComPermission::class, 'userType', 'userType');
-    // }
+    public function comPermission()
+    {
+        return $this->hasOne(ComPermission::class, 'userType', 'userType');
+    }
 }
