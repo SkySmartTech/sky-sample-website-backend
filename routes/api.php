@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminControllers\AdminController;
 use App\Http\Controllers\api\CalculationController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CommonControllers\AssigneeLevelController;
 use App\Http\Controllers\CommonControllers\ComPermissionController;
@@ -112,6 +113,7 @@ Route::post('change-password', [ForgotPasswordController::class, 'changePassword
 Route::get('organizations', [OrganizationController::class, 'index']);
 
 Route::middleware('auth:sanctum')->get('user', [UserController::class, 'show']);
+Route::middleware('auth:sanctum')->post('logout', [LogoutController::class, 'logout']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('organizations/{id}/update', [OrganizationController::class, 'update']);
