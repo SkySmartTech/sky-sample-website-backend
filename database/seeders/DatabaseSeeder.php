@@ -591,6 +591,8 @@ class DatabaseSeeder extends Seeder
             'organizationName'        => 'ABA',
             'organizationFactoryName' => 'Corporate',
         ]);
+
+        $this->call(UserSeeder::class);
     }
 
 }

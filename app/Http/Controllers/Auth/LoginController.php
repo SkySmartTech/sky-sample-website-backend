@@ -26,7 +26,8 @@ class LoginController extends Controller
         return response()->json([
             'message' => 'Login successful',
             'access_token' => $token,
-            'token_type' => 'Bearer'
+            'token_type' => 'Bearer',
+            'user' => $user->only(['id', 'name', 'email', 'role', 'mobile', 'isCompanyEmployee', 'jobPosition', 'department'])
         ], 201);
     }
 
