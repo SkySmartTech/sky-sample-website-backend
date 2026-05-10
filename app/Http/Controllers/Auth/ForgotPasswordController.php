@@ -100,6 +100,7 @@ class ForgotPasswordController extends Controller
         $validator = Validator::make($request->all(), [
             'email'    => 'required|email|exists:users,email',
             'password' => 'required|min:4',
+            'otp'      => 'required|digits:6',
         ]);
 
         if ($validator->fails()) {
@@ -110,6 +111,14 @@ class ForgotPasswordController extends Controller
 
         if (! $user) {
             return response()->json(['error' => 'User not found.'], 404);
+        }
+
+        if ($user->otp !== $request->otp) {
+            return response()->json(['error' => 'Invalid OTP.'], 400);
+        }
+
+        if (now()->greaterThan($user->otp_expires_at)) {
+            return response()->json(['error' => 'OTP has expired.'], 400);
         }
 
         $user->password = Hash::make($request->password);
