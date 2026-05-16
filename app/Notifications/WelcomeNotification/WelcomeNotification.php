@@ -30,7 +30,7 @@ class WelcomeNotification extends Notification
     public function toMail($notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject('Welcome to the ' . $this->organizationName . ' Group!')
+            ->subject('Welcome to  ' . config('app.name') . '!')
             ->markdown('mail.welcome.welcome-notification', [
                 'name'             => $this->name,
                 'organizationName' => $this->organizationName,

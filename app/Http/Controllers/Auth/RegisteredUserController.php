@@ -28,6 +28,11 @@ class RegisteredUserController extends Controller
         $validatedData                      = $request->validated();
         $validatedData['isCompanyEmployee'] = (bool) $validatedData['isCompanyEmployee'];
         $validatedData['password']          = Hash::make($validatedData['password']);
+        
+        // Set default userType to 2 (guest) if not provided
+        if (empty($validatedData['userType'])) {
+            $validatedData['userType'] = 2;
+        }
 
         $user = $this->userInterface->create($validatedData);
 

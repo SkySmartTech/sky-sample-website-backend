@@ -19,6 +19,7 @@ class RegisterRequest extends FormRequest
             'email'             => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password'          => ['required', 'min:4', 'confirmed', 'max:15'],
             'mobile'            => ['required', 'string', 'max:15', 'unique:users'],
+            'userType'          => ['nullable', 'integer', 'exists:com_permissions,id'],
 
             'department'        => ['nullable', 'string', 'max:255', 'required_if:isCompanyEmployee,true'],
             'jobPosition'       => ['nullable', 'string', 'required_if:isCompanyEmployee,true'],
